@@ -10,10 +10,6 @@ import java.sql.Time;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-// line 15 "model.ump"
-// line 51 "model.ump"
-
-
 
   
   @Entity

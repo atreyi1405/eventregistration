@@ -5,9 +5,6 @@ import javax.persistence.Entity;
   import javax.persistence.ManyToOne;
 
 
-// line 8 "model.ump"
-// line 45 "model.ump"
-
 
   
   @Entity
