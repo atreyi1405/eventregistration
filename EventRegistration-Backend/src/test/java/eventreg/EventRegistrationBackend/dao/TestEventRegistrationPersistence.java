@@ -16,21 +16,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import eventreg.EventRegistrationBackend.model.Event;
+import eventreg.EventRegistrationBackend.model.Person;
+import eventreg.EventRegistrationBackend.model.Registration;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class TestEventRegistrationPersistence {
     @Autowired
     private PersonRepository personRepository;
-    @Autowiredprivate EventRepository eventRepository;
+    @Autowired 
+	private EventRepository eventRepository;
     @Autowired
     private RegistrationRepository registrationRepository;
-
+    /** 
     @AfterEach
     public void clearDatabase(){
         registrationRepository.deleteAll;
         personRepository.deleteAll;
         eventRepository.deleteAll;
-    }
+    }*/
 
     @Test
         public void testPersistAndLoadPerson() {
@@ -74,7 +79,7 @@ public class TestEventRegistrationPersistence {
 
 
     @Test
-    Public void testPersistAndLoadRegistration() {
+        public void testPersistAndLoadRegistration() {
 		String personName = "TestPerson";
 		Person person = new Person();
 		person.setName(personName);
