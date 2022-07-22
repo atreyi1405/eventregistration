@@ -29,18 +29,18 @@ public class EventRegistrationController{
     @Autowired
 	private EventRegistrationService service;
 
-   // @GetMapping(value = { "/persons", "/persons/" })
+    @GetMapping(value = { "/persons", "/persons/" })
     public List<PersonDto> getAllPersons() {
 	return service.getAllPersons().stream().map(p -> convertToDto(p)).collect(Collectors.toList()); 
     }
 
-   //@PostMapping(value = { "/persons/{name}", "/persons/{name}/" })
+   @PostMapping(value = { "/persons/{name}", "/persons/{name}/" })
     public PersonDto createPerson(@PathVariable("name") String name) throws IllegalArgumentException {
 	Person person = service.createPerson(name);
 	return convertToDto(person);
     }
 
-    //@PostMapping(value = { "/events/{name}", "/events/{name}/" })
+    @PostMapping(value = { "/events/{name}", "/events/{name}/" })
     public EventDto createEvent(@PathVariable("name") String name, @RequestParam Date date,
     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
@@ -49,7 +49,7 @@ public class EventRegistrationController{
 	return convertToDto(event);
     }
 
-   // @GetMapping(value = { "/events", "/events/" })
+    @GetMapping(value = { "/events", "/events/" })
     public List<EventDto> getAllEvents() {
 	List<EventDto> eventDtos = new ArrayList<>();
 	for (Event event : service.getAllEvents()) {
@@ -58,7 +58,7 @@ public class EventRegistrationController{
 	return eventDtos;
     }
 
-    //@PostMapping(value = { "/register", "/register/" })
+    @PostMapping(value = { "/register", "/register/" })
     public RegistrationDto registerPersonForEvent(@RequestParam(name = "person") PersonDto pDto,
 	@RequestParam(name = "event") EventDto eDto) throws IllegalArgumentException {
 	Person p = service.getPerson(pDto.getName());
@@ -68,13 +68,13 @@ public class EventRegistrationController{
 	return convertToDto(r, p, e);
     }
 
-    //@GetMapping(value = { "/registrations/person/{name}", "/registrations/person/{name}/" })
+    @GetMapping(value = { "/registrations/person/{name}", "/registrations/person/{name}/" })
     public List<EventDto> getEventsOfPerson(@PathVariable("name") PersonDto pDto) {
 	Person p = convertToDomainObject(pDto);
 	return createEventDtosForPerson(p);
     }
 
-    //@GetMapping(value = { "/events/{name}", "/events/{name}/" })
+    @GetMapping(value = { "/events/{name}", "/events/{name}/" })
     public EventDto getEventByName(@PathVariable("name") String name) throws IllegalArgumentException {
 	return convertToDto(service.getEvent(name));
     }
