@@ -29,18 +29,18 @@ public class EventRegistrationController{
     @Autowired
 	private EventRegistrationService service;
 
-    @GetMapping(value = { "/persons", "/persons/" })
+   // @GetMapping(value = { "/persons", "/persons/" })
     public List<PersonDto> getAllPersons() {
 	return service.getAllPersons().stream().map(p -> convertToDto(p)).collect(Collectors.toList()); 
     }
 
-    @PostMapping(value = { "/persons/{name}", "/persons/{name}/" })
+   //@PostMapping(value = { "/persons/{name}", "/persons/{name}/" })
     public PersonDto createPerson(@PathVariable("name") String name) throws IllegalArgumentException {
 	Person person = service.createPerson(name);
 	return convertToDto(person);
     }
 
-    @PostMapping(value = { "/events/{name}", "/events/{name}/" })
+    //@PostMapping(value = { "/events/{name}", "/events/{name}/" })
     public EventDto createEvent(@PathVariable("name") String name, @RequestParam Date date,
     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime startTime,
     @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME, pattern = "HH:mm") LocalTime endTime)
@@ -49,37 +49,37 @@ public class EventRegistrationController{
 	return convertToDto(event);
     }
 
-@GetMapping(value = { "/events", "/events/" })
-public List<EventDto> getAllEvents() {
+   // @GetMapping(value = { "/events", "/events/" })
+    public List<EventDto> getAllEvents() {
 	List<EventDto> eventDtos = new ArrayList<>();
 	for (Event event : service.getAllEvents()) {
 		eventDtos.add(convertToDto(event));
 	}
 	return eventDtos;
-}
+    }
 
-@PostMapping(value = { "/register", "/register/" })
-public RegistrationDto registerPersonForEvent(@RequestParam(name = "person") PersonDto pDto,
+    //@PostMapping(value = { "/register", "/register/" })
+    public RegistrationDto registerPersonForEvent(@RequestParam(name = "person") PersonDto pDto,
 	@RequestParam(name = "event") EventDto eDto) throws IllegalArgumentException {
 	Person p = service.getPerson(pDto.getName());
 	Event e = service.getEvent(eDto.getName());
 
 	Registration r = service.register(p, e);
 	return convertToDto(r, p, e);
-}
+    }
 
-@GetMapping(value = { "/registrations/person/{name}", "/registrations/person/{name}/" })
-public List<EventDto> getEventsOfPerson(@PathVariable("name") PersonDto pDto) {
+    //@GetMapping(value = { "/registrations/person/{name}", "/registrations/person/{name}/" })
+    public List<EventDto> getEventsOfPerson(@PathVariable("name") PersonDto pDto) {
 	Person p = convertToDomainObject(pDto);
 	return createEventDtosForPerson(p);
-}
+    }
 
-@GetMapping(value = { "/events/{name}", "/events/{name}/" })
-public EventDto getEventByName(@PathVariable("name") String name) throws IllegalArgumentException {
+    //@GetMapping(value = { "/events/{name}", "/events/{name}/" })
+    public EventDto getEventByName(@PathVariable("name") String name) throws IllegalArgumentException {
 	return convertToDto(service.getEvent(name));
-}
+    }
 
-private EventDto convertToDto(Event e) {
+    private EventDto convertToDto(Event e) {
 	if (e == null) {
 		throw new IllegalArgumentException("There is no such Event!");
 	}
@@ -87,7 +87,7 @@ private EventDto convertToDto(Event e) {
 	return eventDto;
 }
 
-private PersonDto convertToDto(Person p) {
+    private PersonDto convertToDto(Person p) {
 	if (p == null) {
 		throw new IllegalArgumentException("There is no such Person!");
 	}
@@ -96,13 +96,13 @@ private PersonDto convertToDto(Person p) {
 	return personDto;
 }
 
-private RegistrationDto convertToDto(Registration r, Person p, Event e) {
+    private RegistrationDto convertToDto(Registration r, Person p, Event e) {
 	EventDto eDto = convertToDto(e);
 	PersonDto pDto = convertToDto(p);
 	return new RegistrationDto(pDto, eDto);
 }
 
-private Person convertToDomainObject(PersonDto pDto) {
+    private Person convertToDomainObject(PersonDto pDto) {
 	List<Person> allPersons = service.getAllPersons();
 	for (Person person : allPersons) {
 		if (person.getName().equals(pDto.getName())) {
@@ -112,7 +112,7 @@ private Person convertToDomainObject(PersonDto pDto) {
 	return null;
 }
 
-private List<EventDto> createEventDtosForPerson(Person p) {
+    private List<EventDto> createEventDtosForPerson(Person p) {
 	List<Event> eventsForPerson = service.getEventsAttendedByPerson(p);
 	List<EventDto> events = new ArrayList<>();
 	for (Event event : eventsForPerson) {
