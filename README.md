@@ -1,5 +1,5 @@
 # Event Registration
-This reposirtory has complete backend development code for Event Registration app. The app lets people register for an event. For an efficient development process, each check in is verified using Java CI. Heroku is used as a host for this application backend (this includes the database)
+This reposirtory has complete backend development code for Event Registration app. The app lets people register for an event. For an efficient development process, each check in is verified using Java CI. Heroku is used as a host for this application backend (this includes the database). Spring framework is also used in the project.
 
 ## Domain Model
 The domain model for the app was created on Umple and the generated Java code was edited accordingly to be JPA compilant. 
